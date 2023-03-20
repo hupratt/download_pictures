@@ -1,18 +1,18 @@
-# from source import airtable as url_paths_to_try
+from source import airtable as url_paths_to_try
 import requests
-import shutil
+import logging
 
-url_paths_to_try=[
-"https://v5.airtableusercontent.com/v1/15/15/1679342400000/AXgRdRQrXFUGMA8UC4RARw/TnJ93fJ8r0PNzxeCplV04Fq7Xv5DKFOv_YutdmeZ4UNhJ8YQQ_I2MODETwR738NO13ABHn8i-icsvpddc4fr1-4mH3aw9SMpVGdr_TR4o9o/Eu2753h82HVIvCH9PYoNJiJC-Psf0RFiUKJVXoIoktk"
-]
+logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+
 
 for file_name, url_image_path in enumerate(url_paths_to_try):
-    f_path = str(file_name)+".jpg"
+    f_path = 'output/'+str(file_name)+".jpg"
     try:
         response = requests.get(url_image_path)
+        # raise Exception("trigger exception") 
         if response.status_code == 200:
             with open(f_path, 'wb') as f:
                 f.write(response.content)
         del response
     except Exception as e:
-        print(e)
+        logging.error(e)

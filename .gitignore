@@ -1,2 +1,5 @@
 source.py
 *.pyc
+*.jpg
+*.log
+*.zip
