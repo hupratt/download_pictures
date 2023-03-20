@@ -9,14 +9,10 @@ url_paths_to_try=[
 for file_name, url_image_path in enumerate(url_paths_to_try):
     f_path = str(file_name)+".jpg"
     try:
-        response = requests.get(url_image_path, stream=True)
+        response = requests.get(url_image_path)
         if response.status_code == 200:
-            with open(f_path, 'wb') as out_file:
-                shutil.copyfileobj(response.raw, 'output')
+            with open(f_path, 'wb') as f:
+                f.write(response.content)
         del response
-            # print(True)
-            # open(file_name, 'wb').write(r.content)
-            # with open(file_name, 'wb') as f:
-            #     f.write(r.content)
     except Exception as e:
         print(e)
